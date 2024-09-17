@@ -6,7 +6,6 @@ use MedianetDev\CloudMessage\Contracts\NotificationInterface;
 
 class HuaweiNotification implements NotificationInterface
 {
-
     use Notification;
 
     private static $urlAuth = 'https://login.vmall.com/oauth2/token';
@@ -24,9 +23,9 @@ class HuaweiNotification implements NotificationInterface
         $structureData['message']['data'] = json_encode($message);
         $structureData['message']['token'] = $tokens;
 
-        $headers = ['Content-Type: application/json', 'Authorization: Bearer ' . self::getAccessToken()];
+        $headers = ['Content-Type: application/json', 'Authorization: Bearer '.self::getAccessToken()];
 
-        $url = self::$pushUrl . config('cloud_message.huawei.app_id') . '/messages:send';
+        $url = self::$pushUrl.config('cloud_message.huawei.app_id').'/messages:send';
 
         $response = self::request($url, json_encode($structureData), $headers);
 
@@ -48,9 +47,15 @@ class HuaweiNotification implements NotificationInterface
         return $result['access_token'] ?? '';
     }
 
-    public static function sendToTopic(array $message, string $topic) {}
+    public static function sendToTopic(array $message, string $topic)
+    {
+    }
 
-    public static function subscribeToTopic(string $topic, array $tokens) {}
+    public static function subscribeToTopic(string $topic, array $tokens)
+    {
+    }
 
-    public static function unsubscribeToTopic(string $topic, array $tokens) {}
+    public static function unsubscribeToTopic(string $topic, array $tokens)
+    {
+    }
 }

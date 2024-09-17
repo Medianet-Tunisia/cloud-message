@@ -49,10 +49,6 @@ class CloudMessage
         return $class::unsubscribeToTopic($topic, $tokens);
     }
 
-
-
-
-
     protected static function getDriverClass(string $driver)
     {
         $drivers = [

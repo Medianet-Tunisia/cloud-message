@@ -33,6 +33,6 @@ class CloudMessageServiceProvider extends ServiceProvider
      */
     protected function getConfigFile(): string
     {
-        return __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'cloud_message.php';
+        return __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'cloud_message.php';
     }
 }

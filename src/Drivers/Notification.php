@@ -4,10 +4,8 @@ namespace MedianetDev\CloudMessage\Drivers;
 
 trait Notification
 {
-
     protected static function request(string $url, string $payload, array $headers = [], $method = 'POST')
     {
-
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
@@ -24,14 +22,14 @@ trait Notification
 
         if (config('cloud_message.with_log')) {
             app('log')->debug(
-                "\n------------------- Gateway request --------------------" .
-                    "\n#Url: " . $url .
-                    "\n#Method: " . $method .
-                    "\n#Headers: " . json_encode($headers) .
-                    "\n#Data: " . json_encode($payload) .
-                    "\n------------------- Gateway response -------------------" .
-                    "\n#Status code: " . $statusCode .
-                    "\n#Response: " . json_encode($data) .
+                "\n------------------- Gateway request --------------------".
+                    "\n#Url: ".$url.
+                    "\n#Method: ".$method.
+                    "\n#Headers: ".json_encode($headers).
+                    "\n#Data: ".json_encode($payload).
+                    "\n------------------- Gateway response -------------------".
+                    "\n#Status code: ".$statusCode.
+                    "\n#Response: ".json_encode($data).
                     "\n--------------------------------------------------------"
             );
         }

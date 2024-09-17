@@ -21,17 +21,17 @@ class FirebaseNotification implements NotificationInterface
     public static function sendToTopic(array $message, $topic)
     {
         $headers = [
-            'Authorization: Bearer ' . self::getAccessToken(),
+            'Authorization: Bearer '.self::getAccessToken(),
             'Content-Type: application/json',
         ];
 
-        $url = self::$firebaseApiBaseUrl . config('cloud_message.firebase.project_id') . '/messages:send';
+        $url = self::$firebaseApiBaseUrl.config('cloud_message.firebase.project_id').'/messages:send';
 
         $data = [
             'message' => [
                 'topic' => $topic,
                 'notification' => $message,
-            ]
+            ],
         ];
 
         $response = self::request($url, json_encode($data), $headers);
@@ -47,10 +47,10 @@ class FirebaseNotification implements NotificationInterface
             'count_failed' => 0,
         ];
 
-        $url = self::$firebaseApiBaseUrl . config('cloud_message.firebase.project_id') . '/messages:send';
+        $url = self::$firebaseApiBaseUrl.config('cloud_message.firebase.project_id').'/messages:send';
         try {
             $headers = [
-                'Authorization: Bearer ' . self::getAccessToken(),
+                'Authorization: Bearer '.self::getAccessToken(),
                 'Content-Type: application/json',
             ];
 
@@ -83,16 +83,16 @@ class FirebaseNotification implements NotificationInterface
 
     public static function subscribeToTopic(string $topic, array $tokens)
     {
-        $url = self::$googleApiBaseUrl . ':batchAdd';
+        $url = self::$googleApiBaseUrl.':batchAdd';
 
         $headers = [
-            'Authorization: Bearer ' . self::getAccessToken(),
+            'Authorization: Bearer '.self::getAccessToken(),
             'Content-Type: application/json',
             'access_token_auth: true',
         ];
 
         $data = [
-            'to' => '/topics/' . $topic,
+            'to' => '/topics/'.$topic,
             'registration_tokens' => $tokens,
         ];
 
@@ -106,16 +106,16 @@ class FirebaseNotification implements NotificationInterface
 
     public static function unsubscribeToTopic(string $topic, array $tokens)
     {
-        $url = self::$googleApiBaseUrl . ':batchRemove';
+        $url = self::$googleApiBaseUrl.':batchRemove';
 
         $headers = [
-            'Authorization: Bearer ' . self::getAccessToken(),
+            'Authorization: Bearer '.self::getAccessToken(),
             'Content-Type: application/json',
             'access_token_auth: true',
         ];
 
         $data = [
-            'to' => '/topics/' . $topic,
+            'to' => '/topics/'.$topic,
             'registration_tokens' => $tokens,
         ];
 
