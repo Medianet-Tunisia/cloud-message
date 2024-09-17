@@ -1,4 +1,13 @@
 # Cloud Message
+<br>
+
+<p align="center">
+<a href="https://packagist.org/packages/medianet-dev/cloud-message" title="Latest Version on Packagist"><img src="https://img.shields.io/packagist/v/medianet-dev/cloud-message.svg?logo=composer"></a>
+<a href="https://scrutinizer-ci.com/g/Medianet-Tunisia/cloud-message" title="Quality Score"><img src="https://img.shields.io/scrutinizer/quality/g/Medianet-Tunisia/cloud-message.svg?b=main"></a>
+<a href="https://packagist.org/packages/medianet-dev/cloud-message" title="Total Downloads"><img src="https://img.shields.io/packagist/dt/medianet-dev/cloud-message.svg"></a>
+</p>
+
+---
 
 Cloud Message is a Laravel package that provides a simple and unified way to send push notifications using Firebase Cloud Messaging (FCM) and Huawei Push Kit.
 
@@ -54,10 +63,10 @@ $registrationTokens = [
 ];
 
 // Send via Firebase (default)
-$results = CloudMessage::sendWithTokens($message, $registrationTokens);
+$results = CloudMessage::sendToTokens($message, $registrationTokens);
 
 // Send via Huawei
-$results = CloudMessage::sendWithTokens($message, $registrationTokens, 'huawei');
+$results = CloudMessage::sendToTokens($message, $registrationTokens, 'huawei');
 ```
 
 ### Using the FirebaseNotification Class Directly
@@ -77,7 +86,7 @@ $registrationTokens = [
     'token2'
 ];
 
-$results = FirebaseNotification::sendWithTokens($message, $registrationTokens);
+$results = FirebaseNotification::sendToTokens($message, $registrationTokens);
 ```
 
 ### Subscribe to a Topic
