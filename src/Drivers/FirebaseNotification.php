@@ -4,6 +4,7 @@ namespace MedianetDev\CloudMessage\Drivers;
 
 use Google\Client;
 use MedianetDev\CloudMessage\Contracts\NotificationInterface;
+use MedianetDev\CloudMessage\Jobs\MultiTokensJob;
 
 class FirebaseNotification implements NotificationInterface
 {
@@ -41,42 +42,29 @@ class FirebaseNotification implements NotificationInterface
 
     public static function sendToTokens(array $message, array $tokens)
     {
-        $notifications_data = [
-            'count_of_tokens' => count($tokens),
-            'count_success' => 0,
-            'count_failed' => 0,
-        ];
-
         $url = self::$firebaseApiBaseUrl.config('cloud_message.firebase.project_id').'/messages:send';
         try {
             $headers = [
                 'Authorization: Bearer '.self::getAccessToken(),
                 'Content-Type: application/json',
             ];
-
-            foreach ($tokens as $mobileId) {
-                $response = self::request($url, json_encode(['message' => [
-                    'token' => $mobileId,
-                    'notification' => $message,
-                ]]), $headers);
-
-                $data = json_decode($response['data'], true);
-
-                if (false == $response || ($data['error'] ?? false)) {
-                    ++$notifications_data['count_failed'];
-                } else {
-                    ++$notifications_data['count_success'];
+            if (config('cloud_message.async_requests')) {
+                dispatch(new MultiTokensJob($tokens, $message, $url, $headers));
+            } else {
+                foreach ($tokens as $mobileId) {
+                    self::request($url, json_encode(['message' => [
+                        'token' => $mobileId,
+                        'notification' => $message,
+                    ]]), $headers);
                 }
             }
 
             return [
                 'status' => true,
-                'data' => $notifications_data,
             ];
         } catch (\Throwable $th) {
             return [
                 'status' => false,
-                'data' => $notifications_data,
             ];
         }
     }
