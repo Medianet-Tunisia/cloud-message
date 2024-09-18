@@ -3,7 +3,16 @@
     "description": "A Laravel package for sending Firebase and Huawei notifications.",
     "keywords": [
         "medianet-dev",
-        "cloud-message"
+        "cloud-message",
+        "fcm",
+        "laravel",
+        "fcm",
+        "firebase",
+        "push",
+        "notification",
+        "fcm",
+        "high",
+        "priority"
     ],
     "homepage": "https://github.com/medianet-dev/cloud-message",
     "license": "MIT",
