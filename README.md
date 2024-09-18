@@ -113,6 +113,22 @@ $results = FirebaseNotification::unsubscribeToTopic($topic, $registrationTokens)
 ```
 Removes the subscription of the tokens from the given topic.
 
+### Configuration for Asynchronous Requests
+
+For performance optimizations when sending notifications to large numbers of tokens, the package supports asynchronous multi-token requests.
+
+To enable this feature, configure the `async_requests` option in the config file:
+
+```php
+return [
+    // Other configurations...
+
+    'async_requests' => env('CLOUD_MESSAGE_ASYNC_REQUESTS', false),
+];
+```
+
+You will need to ensure your queue worker is running to process these asynchronous jobs. From the command line, run: `php artisan queue:work` 
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
