@@ -10,7 +10,7 @@ trait Notification
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        if ($method == 'POST') {
+        if ('POST' == $method) {
             curl_setopt($ch, CURLOPT_POST, true);
         }
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -21,22 +21,27 @@ trait Notification
         curl_close($ch);
 
         if (config('cloud_message.with_log')) {
-            app('log')->debug(
-                "\n------------------- Gateway request --------------------".
-                    "\n#Url: ".$url.
-                    "\n#Method: ".$method.
-                    "\n#Headers: ".json_encode($headers).
-                    "\n#Data: ".json_encode($payload).
-                    "\n------------------- Gateway response -------------------".
-                    "\n#Status code: ".$statusCode.
-                    "\n#Response: ".json_encode($data).
-                    "\n--------------------------------------------------------"
-            );
+            self::logRequest($url, $method, $headers, $payload, $statusCode, $data);
         }
 
         return [
             'data' => $data,
-            'status' => $statusCode == 200
+            'status' => 200 == $statusCode,
         ];
+    }
+
+    protected static function logRequest($url, $method, $headers, $payload, $statusCode, $data)
+    {
+        app('log')->debug(
+            "\n------------------- Gateway request --------------------".
+                "\n#Url: ".$url.
+                "\n#Method: ".$method.
+                "\n#Headers: ".json_encode($headers).
+                "\n#Data: ".$payload.
+                "\n------------------- Gateway response -------------------".
+                "\n#Status code: ".$statusCode.
+                "\n#Response: ".$data.
+                "\n--------------------------------------------------------"
+        );
     }
 }

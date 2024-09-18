@@ -22,4 +22,8 @@ return [
 
     // Enable or disable API logs
     'with_log' => env('CLOUD_MESSAGE_WITH_LOG', false),
+
+    // Enable or disable async requests
+    'async_requests' => env('CLOUD_MESSAGE_ASYNC_REQUESTS', false),
+
 ];
