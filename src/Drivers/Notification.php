@@ -7,7 +7,7 @@ trait Notification
 
     protected static function firebaseRequest(string $url, array $payload, array $headers = [], $method = 'POST')
     {
-        if (isset($payload['message']['notification']['data']) && !empty($payload['message']['notification']['data'])) {
+        if (isset($payload['message']['notification']['data']) && ! empty($payload['message']['notification']['data'])) {
             foreach ($payload['message']['notification']['data'] as $key => $v) {
                 $payload['message']['notification']['data'][$key] = (string) $v;
             }
@@ -16,7 +16,7 @@ trait Notification
             unset($payload['message']['notification']['data']);
         }
 
-        return self::request($url,json_encode($payload),$headers,$method);
+        return self::request($url, json_encode($payload), $headers, $method);
     }
 
     protected static function request(string $url, string $payload, array $headers = [], $method = 'POST')
