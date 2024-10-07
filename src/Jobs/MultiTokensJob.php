@@ -33,10 +33,10 @@ class MultiTokensJob implements ShouldQueue
     public function handle()
     {
         foreach ($this->tokens as $mobileId) {
-            self::request($this->url, json_encode(['message' => [
+            self::firebaseRequest($this->url, ['message' => [
                 'token' => $mobileId,
                 'notification' => $this->message,
-            ]]), $this->headers);
+            ]], $this->headers);
         }
     }
 }

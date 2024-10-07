@@ -35,7 +35,7 @@ class FirebaseNotification implements NotificationInterface
             ],
         ];
 
-        $response = self::request($url, json_encode($data), $headers);
+        $response = self::firebaseRequest($url, $data, $headers);
 
         return ['status' => $response['status']];
     }
@@ -52,10 +52,10 @@ class FirebaseNotification implements NotificationInterface
                 dispatch(new MultiTokensJob($tokens, $message, $url, $headers));
             } else {
                 foreach ($tokens as $mobileId) {
-                    self::request($url, json_encode(['message' => [
+                    self::firebaseRequest($url, ['message' => [
                         'token' => $mobileId,
                         'notification' => $message,
-                    ]]), $headers);
+                    ]], $headers);
                 }
             }
 
