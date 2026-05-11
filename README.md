@@ -22,8 +22,8 @@ Cloud Message is a Laravel package that provides a simple and unified way to sen
 
 ## Requirements
 
-- PHP 7.3+
-- Laravel 7.0+
+- PHP 8.1+
+- Laravel 9.x – 13.x
 
 ## Installation
 
